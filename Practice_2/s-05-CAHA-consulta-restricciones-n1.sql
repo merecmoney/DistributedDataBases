@@ -8,7 +8,8 @@ col tabla_hija format A30
 col nombre_restriccion format A30
 set linesize 200
 select t1.TABLE_NAME as tabla_hija, t1.CONSTRAINT_NAME as nombre_restriccion,
-t2.TABLE_NAME as tabla_padre, t1.CONSTRAINT_TYPE as tipo_restriccion from USER_CONSTRAINTS t1
+t2.TABLE_NAME as tabla_padre, t1.CONSTRAINT_TYPE as tipo_restriccion
+from USER_CONSTRAINTS t1
 join USER_CONSTRAINTS t2
 on t1.R_CONSTRAINT_NAME = t2.CONSTRAINT_NAME
 order by t2.TABLE_NAME;
