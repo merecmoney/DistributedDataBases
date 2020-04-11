@@ -77,6 +77,24 @@ begin
     select count(*)
       into v_num_cuentas
       from F_CAH_CUENTA_2;
+
+    -- consultando el número de cuentas
+    select count(*)
+      into v_num_cuentas
+      from (
+        select c1.CUENTA_ID
+        from F_CAH_CUENTA_2 c2
+        join F_CAH_CUENTA_1@cahabdd_s1.fi.unam c1
+        on c2.CUENTA_ID = c1.CUENTA_ID
+        join
+        (select CUENTA_ID
+          from F_CAH_CUENTA_4
+          union all
+          select CUENTA_ID
+          from F_CAH_CUENTA_3@cahabdd_s1.fi.unam
+        ) c3
+        on c2.CUENTA_ID = c3.CUENTA_ID
+      ) CUENTA;
     
     -- consultando el número de movimientos
     select count(*)
