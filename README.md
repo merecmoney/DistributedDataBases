@@ -44,3 +44,41 @@ Using script to retrieve  [tables'](https://github.com/merecmoney/DistributedDat
 references , first column is child table, second is reference name and last parent table.
 
 ![Tables for each node](/images/P2_DDB_2.png)
+
+- Practice 3: Impletended Local Mapping Transparency(Is when the end user or programmer must specify both the fragment names and their locations)
+
+This requirement was achieved using database links, the DDL code to 
+create those links are derfined in the script
+[s-02-CAHA-creacion-ligas.sql](https://github.com/merecmoney/DistributedDataBases/blob/master/Practice_3/s-02-CAHA-creacion-ligas.sql).
+
+After creating those database links, we can use them to get data
+from another node's using the node's global name, in this case
+there are two nodes:
+
+- CAHABDD_S1: __cahabdd_s1.fi.unam__
+
+- CAHABDD_S2: __cahabdd_s2.fi.unam__
+
+For example in the script [s-03-CAHABDD_S1-consultas.sql](https://github.com/merecmoney/DistributedDataBases/blob/master/Practice_3/s-03-CAHABDD_S1-consultas.sql)
+and [s-03-CAHABDD_S2-consultas.sql](https://github.com/merecmoney/DistributedDataBases/blob/master/Practice_3/s-03-CAHABDD_S2-consultas.sql), get data from
+the other node to count the number of rows for each tables defined in the schema, where
+reconstruction expression are used which were defined in *Practice_1*.
+
+Results after running these script on each node:
+
+For node CAHABDD_S1 after running s-03-CAHABDD_S1-consultas.sql:
+![Result after running ](/images/P3_C3_1.png)
+
+For node CAHABDD_S2 after running s-03-CAHABDD_S2-consultas.sql:
+![Result after running ](/images/P3_C3_2.png)
+
+As seen, both results are the same, the only thing that change
+in both scripts are the reconstruction expressions used and
+the fragments that are obtained from the other node.
+
+Add [s-00-carga-blob-en-bd.sql](https://github.com/merecmoney/DistributedDataBases/blob/master/Practice_3/s-00-carga-blob-en-bd.sql) 
+and [s-00-guarda-blob-en-archivo.sql](https://github.com/merecmoney/DistributedDataBases/blob/master/Practice_3/s-00-guarda-blob-en-archivo.sql)
+to import BLOB data to database and export BLOB data from database to a system file.
+Script [s-04-prepara-carga-archivos.sql](https://github.com/merecmoney/DistributedDataBases/blob/master/Practice_3/s-04-prepara-carga-archivos.sql)
+is used to verify this scripts work correctly and import and export some data to
+the database.
