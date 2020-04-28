@@ -44,7 +44,7 @@ create or replace synonym banco_2 for F_CAH_BANCO_2;
 
 Prompt creando sinónimos para los fragmentos de PAIS
 create or replace synonym pais_1 for F_CAH_PAIS_1@cahabdd_s1;
-create or replace synonym pais_2 for F_CAH_BANCO_2;
+create or replace synonym pais_2 for F_CAH_PAIS_2;
 
 Prompt creando sinónimos para los fragmentos de SUCURSAL
 create or replace synonym sucursal_1 for F_CAH_SUCURSAL_1@cahabdd_s1;
