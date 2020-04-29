@@ -1,6 +1,6 @@
 --@Autor: Hernández Arrieta Carlos Alberto
 --@Fecha creación: 22/March/2020
---@Descripción: Archivo de carga inicial en pc-carlos.fi.unam
+--@Descripción: Conteo de registros en cada objeto en cada PDB
 set linesize 2000
 Prompt Conectando a S1 - cahabdd_s1
 connect bancos_bdd/bancos_bdd@cahabdd_s1
