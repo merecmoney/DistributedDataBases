@@ -4,10 +4,6 @@
 -- soporta las operaciones DML INSERT, UPDATE, DELETE
 -- para el cahabdd_s2
 
-Prompt conectandose a cahabdd_s1
-connect bancos_bdd/bancos_bdd@cahabdd_s1
-Prompt Creación del Trigger para PAIS en el nodo cahabdd_s1
-
 create or replace trigger t_dml_pais
 instead of insert or update or delete on pais
 
@@ -89,6 +85,3 @@ begin
     end case;
 end;
 /
-show errors;
-Prompt Listo
-exit;
