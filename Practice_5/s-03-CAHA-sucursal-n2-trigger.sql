@@ -4,10 +4,6 @@
 -- soporta las operaciones DML INSERT, UPDATE, DELETE
 -- para el cahabdd_s2
 
-Prompt conectandose a cahabdd_s2
-connect bancos_bdd/bancos_bdd@cahabdd_s2
-Prompt Creación del Trigger para SUCURSAL en el nodo cahabdd_s2
-
 -- Fragmentación Derivada respecto a BANCO
 create or replace trigger t_dml_sucursal
 instead of insert or update or delete on sucursal
@@ -78,6 +74,3 @@ begin
     end case;
 end;
 /
-show errors;
-Prompt Listo
-exit
