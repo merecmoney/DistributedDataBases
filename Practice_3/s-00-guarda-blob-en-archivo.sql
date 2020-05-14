@@ -72,7 +72,7 @@ BEGIN
       || ' = :ph_pk1_column_value';
 
   if v_pk2_column_name is not null then
-    v_query := v_query 
+    v_query := v_query
       || ' and '
       || v_valid_pk2_column_name
       || ' = :ph_pk2_column_value';

@@ -1,6 +1,6 @@
 --@Autor: Hernández Arrieta Carlos Alberto
 --@Fecha creación: 21/Marzo/2019
---@Descripción: Consulta de las restricciones de referencia 
+--@Descripción: Consulta de las restricciones de referencia
 -- de las tablas del nodo s1 en pc-carlos.fi.unam
 Prompt mostrando lista de restricciones de referencia
 col tabla_padre format A30

@@ -73,14 +73,14 @@ create or replace procedure carga_blob_en_bd(
   v_src_offset        number := 1;
   v_dest_offset       number := 1;
   v_src_blob_size     number;
-  v_src_blob          bfile; 
+  v_src_blob          bfile;
   v_dest_blob         blob;
   --variables que contienen nombres validos de columnas y tablas
   v_valid_table_name       varchar2(30);
   v_valid_blob_column_name varchar2(30);
   v_valid_pk1_column_name  varchar2(30);
   v_valid_pk2_column_name  varchar2(30);
-  
+
   begin
     --inicializa un objeto bfile apuntando al archivo que se va a leer
     --bfile puede ser visto como un puntero al archivo que se va a leer (archivo binario.)
@@ -103,7 +103,7 @@ create or replace procedure carga_blob_en_bd(
   v_valid_blob_column_name := dbms_assert.simple_sql_name(v_blob_column_name);
   v_valid_pk1_column_name := dbms_assert.simple_sql_name(v_pk1_column_name);
 
-  if v_pk2_column_name is not null then 
+  if v_pk2_column_name is not null then
     v_valid_pk2_column_name := dbms_assert.simple_sql_name(v_pk2_column_name);
   end if;
 
@@ -151,17 +151,17 @@ create or replace procedure carga_blob_en_bd(
     -- where  pk1 = :ph_pk1_coluum_value
     -- and  pk2 = :ph_pk2_column_value
     -- returning  pdf into :ph_blob
-   
+
     dbms_output.put_line(v_query);
 
-  
+
     -- En este paso se ejecuta el query dinámico
     -- Observar que aqui se realiza la sustitución de los placeholders antes mencionados. Se usa la clausula
     -- using para asignar el valor de la PK, o de la segunda PK en caso de ser tablas con 2 campos que actuan como PK.
     -- El placeholder :ph_pk1_coluum_value se sustituye con el valor de la variable v_pk1_column_value
     -- El placeholder :ph_pk2_coluum_value se sustituye con el valor de la variable v_pk2_column_value para PK compuesta
     -- El placeholder :ph_blob es un placeholder de retorno, su valor será referenciado por la variable v_dest_blob
-    -- Esta variable representa una referencia a un objeto tipo BLOB vacio que será empleado para escribir 
+    -- Esta variable representa una referencia a un objeto tipo BLOB vacio que será empleado para escribir
     -- los datos del archivo binario.
     if v_pk2_column_name is null
     then
@@ -204,3 +204,4 @@ create or replace procedure carga_blob_en_bd(
 
 --se recomienda ejecutar esta instrucción para mostrar posibles errores de compilación
 show errors
+

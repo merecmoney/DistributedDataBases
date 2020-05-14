@@ -12,12 +12,12 @@ declare
     v_num_bancos number;
     v_num_paises number;
     v_num_sucursales number;
-    v_num_empleados number;    
+    v_num_empleados number;
     v_num_cuentas number;
     v_num_movimientos number;
 begin
     dbms_output.put_line('Realizando consultas empleando ligas');
-    
+
     -- consultando el número de bancos
     select count(*)
         into v_num_bancos
@@ -28,7 +28,7 @@ begin
             select BANCO_ID
             from F_CAH_BANCO_1@cahabdd_s1.fi.unam
         ) BANCO;
-    
+
     --consultando el número de países
     select count(*)
         into v_num_paises
@@ -50,7 +50,7 @@ begin
             select SUCURSAL_ID
             from F_CAH_SUCURSAL_1@cahabdd_s1.fi.unam
         ) SUCURSAL;
-    
+
     -- consultando el número de empleados
     select count(*)
         into v_num_empleados
@@ -72,7 +72,7 @@ begin
         select CUENTA_ID
         from F_CAH_CUENTA_3@cahabdd_s1.fi.unam
       ) CUENTA;
-    
+
     -- consultando el número de cuentas
     select count(*)
       into v_num_cuentas
@@ -95,7 +95,7 @@ begin
         ) c3
         on c2.CUENTA_ID = c3.CUENTA_ID
       ) CUENTA;
-    
+
     -- consultando el número de movimientos
     select count(*)
         into v_num_movimientos

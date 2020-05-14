@@ -1,6 +1,6 @@
 --@Autor: Hernández Arrieta Carlos Alberto
 --@Fecha creación: 21/Marzo/2019
---@Descripción: Consulta de las restricciones de referencia 
+--@Descripción: Consulta de las restricciones de referencia
 -- de las tablas de los nodos s1 y s2 en pc-carlos.fi.unam
 Prompt Conectando a S1 - cahabdd_s1
 connect bancos_bdd/bancos_bdd@cahabdd_s1
