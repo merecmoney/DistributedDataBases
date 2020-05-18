@@ -86,7 +86,7 @@ begin
                 else
                     raise_application_error(-20001,
                     'Error de Integridad para el campo SUCURSAL_ID: '
-                    || :new.sucursal_id
+                    || :old.sucursal_id
                     || ' No se encontró el registro padre en los fragmentos');
                 end if;
             end if;
