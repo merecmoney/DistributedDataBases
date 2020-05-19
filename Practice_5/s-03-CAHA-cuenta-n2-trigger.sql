@@ -2,7 +2,7 @@
 --@Fecha creación: 14/Mayo/2020
 --@Descripción: Creación del trigger para la vista CUENTA
 -- soporta las operaciones DML INSERT, UPDATE, DELETE
--- para el cahabdd_s1
+-- para el cahabdd_s2
 
 create or replace trigger t_dml_cuenta
 instead of insert or update or delete on cuenta
