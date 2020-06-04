@@ -22,4 +22,5 @@ values (300, 'Ceed Sporty Wagon', 'Gmc', 2014, 'ARS522066WERVQ962312', 'P',
     '623261.17', to_date('2010-01-01', 'yyyy-mm-dd')+dbms_random.value(1,365*6),
     101, 3, empty_blob(), 600);
 
+commit;
 exit;
