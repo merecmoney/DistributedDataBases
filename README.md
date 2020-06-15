@@ -28,7 +28,7 @@ Create paper where all of this is defined.
 - __Practice 2__: According to Practice 1, create distributed database
 defining tables, constraints, some data
 and queries to retrieve information as name assign to constraints,
-number of rows for each table and tables defined for each node.
+dummy_number of rows for each table and tables defined for each node.
 
 Create scripts where all tables, constaints and queries are defined.
 
@@ -61,7 +61,7 @@ there are two nodes:
 
 For example in the script [s-03-CAHABDD_S1-consultas.sql](/Practice_3/s-03-CAHABDD_S1-consultas.sql)
 and [s-03-CAHABDD_S2-consultas.sql](/Practice_3/s-03-CAHABDD_S2-consultas.sql), get data from
-the other node to count the number of rows for each tables defined in the schema, where
+the other node to count the dummy_number of rows for each tables defined in the schema, where
 reconstruction expression are used which were defined in *Practice_1*.
 
 Results after running these script on each node:
