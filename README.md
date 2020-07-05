@@ -2,7 +2,7 @@
 
 ## Practices of Relational Distributed DataBases Course
 
-In this course, the following concepts were learned:
+In this course, the following concepts were learned with the practices:
 
 - Create database links.
 - Implement Local Mapping Transparency.
@@ -11,6 +11,7 @@ In this course, the following concepts were learned:
 - Creation of Instead of Triggers.
 - Programming PL/SQL.
 - Manage BLOB data.
+- Replication using materialized views with Fast Refresh.
 
 ### Practice 1
 
@@ -18,6 +19,10 @@ In this course, the following concepts were learned:
 create a Fragmentation Scheme, define relational algebra to
 fragment each table, write Reconstruction Expressions and create
 Relational Model for each node using Crow's foot notation.**
+
+### Original Relational Model
+
+![Relational Model](/images/P0.png)
 
 #### Fragmentation Scheme
 
@@ -66,7 +71,7 @@ In image can be seen tables created for each node.
 - [tables' constraints for s1](/Practice_2/s-05-CAHA-consulta-restricciones-n1.sql)
 - [tables' constraints for s2](/Practice_2/s-05-CAHA-consulta-restricciones-n2.sql)
 
-Using script to retrieve  [tables' foreign references ](/Practice_2/s-05-CAHA-consulta-restricciones-main.sql)
+Using script to retrieve  [tables' foreign references](/Practice_2/s-05-CAHA-consulta-restricciones-main.sql)
 , first column is child table, second is reference name and last parent table.
 
 ![Tables for each node](/images/P2_DDB_2.png)
@@ -140,7 +145,7 @@ As can be seen, data was imported and exported successfully.
 
 ### Practice 4
 
-Implemented Localization and Fragmentation Transparency for SELECT.
+**Implemented Localization and Fragmentation Transparency for SELECT.**
 
 The first one enables to retrieve info from a fragment without specifying its location
 (node where the fragment is at).
@@ -195,8 +200,8 @@ to use the Distributed Database.
 
 ### Practice 5
 
-Implemented Fragmentation Transparency for
-_INSERT_, _UPDATE_ and _DELETE_ operations.
+**Implemented Fragmentation Transparency for
+_INSERT_, _UPDATE_ and _DELETE_ operations.**
 
 This requirement was created using INSTEAD OF TRIGGERS for each
 entity.
@@ -270,3 +275,38 @@ scheme.
 Fragmentation Transparency makes querying for programmer
 much easier because he shouldn't know Fragmentation Scheme
 to make DML operations on entities.
+
+### Practice 6
+
+**Create Replication using Materialized Views.**
+
+Using the following relational model:
+
+![AUTOS Relational Model](images/autos.jpg)
+
+- Create a materialized view **mv_agencia** that shows all its attributes.
+The agencies to replicate correspond to those records whose first character
+of password is in the range [A-F].
+
+- Create a materialized view **mv_auto**. Include in the view only
+the following attributes: auto_id, marca, modelo, anio, num_serie, tipo,
+precio, descuento, agencia_id, cliente_id.
+The cars shown must belong to the agencies that were included in mv_agencia.
+In addition to this, only include private cars (type = P).
+
+- Create a materialized view **mv_cliente**. Only customers whose cars are
+in mv_auto or those whose email is from the .gov domain should be included.
+
+**mlogs** information:
+
+![mlogs information](images/P6_1.png)
+
+Definition of mlogs in this [script](/Practice_6/s_06_CAHA_definicion_mlogs.sql)
+
+**materialized view** information:
+
+![materialized view information](images/P6_2.png)
+
+Definition of mlogs in this [script](/Practice_6/s_05_CAHA_definicion_vistas.sql)
+
+As can be seen, all materialized view use Fast Refresh.
