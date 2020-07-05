@@ -2,6 +2,16 @@
 
 ## Practices of Relational Distributed DataBases Course
 
+In this course, the following concepts were learned:
+
+- Create database links.
+- Implement Local Mapping Transparency.
+- Implement Localization Transparency.
+- Implement Fragmentation Transparency.
+- Creation of Instead of Triggers.
+- Programming PL/SQL.
+- Manage BLOB data.
+
 ### Practice 1
 
 **Given a Problem where a distributed database has 2 nodes,
@@ -29,12 +39,12 @@ Create [paper](/Practice_1/P1.tex) where all of this is defined.
 
 ### Practice 2
 
-**According to Fragmentatio Scheme in Practice 1,
+**According to Fragmentation Scheme in Practice 1,
 create a distributed database.**
 
-Activies:
+Activities:
 
-1. [Define tables
+1. Define tables
 2. Constraints
 3. Some data
 4. Queries to retrieve information of constraints' names,
@@ -126,17 +136,17 @@ Result after running script:
 ![for node s1](/images/P3_1.png)
 ![for node s2](/images/P3_2.png)
 
-As can be seen, data was imported and exported succesfully.
+As can be seen, data was imported and exported successfully.
 
 ### Practice 4
 
-Implemented Localization and Fragmentantion Transparency for SELECT.
+Implemented Localization and Fragmentation Transparency for SELECT.
 
 The first one enables to retrieve info from a fragment without specifying its location
 (node where the fragment is at).
 
 The second one is to retrieve info from a global entity like if it were
-a entity on a centralized database, uses reconstruction expression
+an entity on a centralized database, uses reconstruction expression
 for each entity.
 
 For example, to retrieve all info from entity PAIS from node CAHABDD_S1
@@ -179,13 +189,13 @@ Result is:
 As seen in each image, the result is the same, just
 change the way query was written.
 
-Fragmentantion Transparency makes querying for programmer
+Fragmentation Transparency makes querying for programmer
 much easier because he shouldn't know Fragmentation Scheme
-to use the Distribuited Database.
+to use the Distributed Database.
 
 ### Practice 5
 
-Implemented Fragmentantion Transparency for
+Implemented Fragmentation Transparency for
 _INSERT_, _UPDATE_ and _DELETE_ operations.
 
 This requirement was created using INSTEAD OF TRIGGERS for each
@@ -209,3 +219,54 @@ Just for __PAIS__ entity, _UPDATE_ transparency was implemented.
 7. [Trigger for MOVIMIENTO entity - node s2](/Practice_5/s-03-CAHA-movimiento-n2-trigger.sql)
 
 [Script to create all triggers](Practice_5/s-04-CAHA-main-triggers.sql)
+
+An example to use this requirement, insert the following rows to PAIS:
+
+PAIS_ID | CLAVE | NOMBRE | ZONA_ECONOMICA
+-- | -- | -- | --
+1 | MX | MEXICO | A
+2 | JAP | JAPON | B
+
+By the fragmentation scheme, row with PAIS_ID  = 1 goes to fragment
+F_CAH_PAIS_1 at node s1 and the other one goes to F_CAH_PAIS_2
+at node s2.
+
+Using Local Mapping Transparency:
+
+```sql
+-- node s1
+insert into F_CAH_PAIS_1 (PAIS_ID, CLAVE, NOMBRE, ZONA_ECONOMICA)
+values (1, 'MX', 'MEXICO', 'A');
+-- node s2
+insert into F_CAH_PAIS_2 (PAIS_ID, CLAVE, NOMBRE, ZONA_ECONOMICA)
+values (2, 'JAP', 'JAPON', 'B');
+```
+
+using Localization Transparency:
+
+```sql
+-- node s1
+insert into PAIS_1 (PAIS_ID, CLAVE, NOMBRE, ZONA_ECONOMICA)
+values (1, 'MX', 'MEXICO', 'A');
+-- node s2
+insert into PAIS_2 (PAIS_ID, CLAVE, NOMBRE, ZONA_ECONOMICA)
+values (2, 'JAP', 'JAPON', 'B');
+```
+
+using Fragmentation Transparency:
+
+```sql
+-- node s1
+insert into PAIS (PAIS_ID, CLAVE, NOMBRE, ZONA_ECONOMICA)
+values (1, 'MX', 'MEXICO', 'A');
+-- node s2
+insert into PAIS (PAIS_ID, CLAVE, NOMBRE, ZONA_ECONOMICA)
+values (2, 'JAP', 'JAPON', 'B');
+```
+
+As can be seen, a user can insert into the table without knowing fragmentation
+scheme.
+
+Fragmentation Transparency makes querying for programmer
+much easier because he shouldn't know Fragmentation Scheme
+to make DML operations on entities.
