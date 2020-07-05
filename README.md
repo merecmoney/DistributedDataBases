@@ -307,6 +307,30 @@ Definition of mlogs in this [script](/Practice_6/s_06_CAHA_definicion_mlogs.sql)
 
 ![materialized view information](images/P6_2.png)
 
-Definition of mlogs in this [script](/Practice_6/s_05_CAHA_definicion_vistas.sql)
+Definition of materialized views in this [script](/Practice_6/s_05_CAHA_definicion_vistas.sql)
 
-As can be seen, all materialized view use Fast Refresh.
+As can be seen, all materialized views use Fast Refresh.
+
+### Practice 7
+
+**Learn concepts about partitioning tables.**
+
+- agencia table partioning by [range](/Practice_7/s_03_CAHA_agencia.sql).
+
+Values inserted with their corresponding partition:
+
+![agencia Table Rows with Partition](/images/P10_1.png)
+
+- pago_auto table partioning by [interval-range](/Practice_7/s_03_CAHA_pago_auto.sql).
+
+- historico_status_auto partioning by [interval-hash](/Practice_7/s_03_historico_status_auto.sql)
+
+- auto table partioning by [lista-hash](/Practice_7/s_03_CAHA_auto.sql)
+
+![auto Table Rows with Partition](/images/P10_2.png)
+
+- cliente table partioning by [hash](/Practice_7/s_03_CAHA_cliente_orden_compra.sql).
+- orden_compra partioning by [reference]((/Practice_7/s_03_CAHA_cliente_orden_compra.sql)).
+
+Table partioning gives better performance for queries using
+Parition Prunning and Partition Wise Join.
