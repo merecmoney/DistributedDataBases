@@ -1,11 +1,13 @@
 # Distributed Data Bases
 
-### Practices of Relational Distributed DataBases Course
+## Practices of Relational Distributed DataBases Course
 
-- __Practice 1__: Given a Problem where Database has 2 nodes, create
-Fragmentation Scheme for Database, define relational algebrea to
+### Practice 1
+
+**Given a Problem where a distributed database has 2 nodes,
+create a Fragmentation Scheme, define relational algebra to
 fragment each table, write Reconstruction Expressions and create
-Relational Model for each node using Crow's foot notation.
+Relational Model for each node using Crow's foot notation.**
 
 #### Fragmentation Scheme
 
@@ -23,29 +25,54 @@ Relational Model for each node using Crow's foot notation.
 
 ![node s2](/images/P1_N2.jpg)
 
-Create paper where all of this is defined.
+Create [paper](/Practice_1/P1.tex) where all of this is defined.
 
-- __Practice 2__: According to Practice 1, create distributed database
-defining tables, constraints, some data
-and queries to retrieve information as name assign to constraints,
-dummy_number of rows for each table and tables defined for each node.
+### Practice 2
 
-Create scripts where all tables, constaints and queries are defined.
+**According to Fragmentatio Scheme in Practice 1,
+create a distributed database.**
+
+Activies:
+
+1. [Define tables
+2. Constraints
+3. Some data
+4. Queries to retrieve information of constraints' names,
+number of rows for each table and tables defined for each node.
 
 #### Tables defined for each node
+
+- [Tables for node s1](/Practice_2/s-02-CAHA-n1-ddl.sql)
+- [Tables for node s2](/Practice_2/s-02-CAHA-n2-ddl.sql)
 
 Using script to create [tables](/Practice_2/s-03-CAHA-main-ddl.sql)
 
 ![Tables for each node](/images/P2_DDB_1.png)
 
+In image can be seen tables created for each node.
+
 #### Foreign References defined for each node
 
-Using script to retrieve  [tables'](/Practice_2/s-05-CAHA-consulta-restricciones-main.sql) foreign
-references , first column is child table, second is reference name and last parent table.
+- [tables' constraints for s1](/Practice_2/s-05-CAHA-consulta-restricciones-n1.sql)
+- [tables' constraints for s2](/Practice_2/s-05-CAHA-consulta-restricciones-n2.sql)
+
+Using script to retrieve  [tables' foreign references ](/Practice_2/s-05-CAHA-consulta-restricciones-main.sql)
+, first column is child table, second is reference name and last parent table.
 
 ![Tables for each node](/images/P2_DDB_2.png)
 
-- __Practice 3__: Impletended Local Mapping Transparency(Is when the end user or programmer must specify both the fragment names and their locations)
+#### Initial Data Inserted
+
+- [data](/Practice_2/s-06-CAHA-carga.sql)
+
+Using [script](/Practice_2/s-07-CAHA-consultas.sql) to count rows for each table.
+
+![Count for each table](images/P2_DDB_3.png)
+
+### Practice 3
+
+**Impletended Local Mapping Transparency (is when the end user or
+programmer must specify both the fragment' name and their locations)**
 
 This requirement was achieved using database links, the DDL code to
 create those links are derfined in the script
@@ -56,13 +83,24 @@ from another node's using the node's global name, in this case
 there are two nodes:
 
 - CAHABDD_S1: __cahabdd_s1.fi.unam__
-
 - CAHABDD_S2: __cahabdd_s2.fi.unam__
 
-For example in the script [s-03-CAHABDD_S1-consultas.sql](/Practice_3/s-03-CAHABDD_S1-consultas.sql)
-and [s-03-CAHABDD_S2-consultas.sql](/Practice_3/s-03-CAHABDD_S2-consultas.sql), get data from
-the other node to count the dummy_number of rows for each tables defined in the schema, where
-reconstruction expression are used which were defined in *Practice_1*.
+After creating database links, Local Mapping Transparency can be used,
+for example retrieve all data from entity PAIS from node s1:
+
+```sql
+    select pais_id, clave, nombre, zona_economica
+        from f_cah_pais_1
+        union all
+    select pais_id
+        from f_cah_pais_2@cahabdd_s2.fi.unam
+```
+
+In the script [s-03-CAHABDD_S1-consultas.sql](/Practice_3/s-03-CAHABDD_S1-consultas.sql)
+and [s-03-CAHABDD_S2-consultas.sql](/Practice_3/s-03-CAHABDD_S2-consultas.sql),
+get data from the other node to count the number of rows for each entity defined
+in the schema, where reconstruction expression are used, which were defined in
+*Practice_1*.
 
 Results after running these script on each node:
 
@@ -83,20 +121,30 @@ Script [s-04-prepara-carga-archivos.sql](/Practice_3/s-04-prepara-carga-archivos
 is used to verify this scripts work correctly and import and export some data to
 the database.
 
-- __Practice 4__: Implemented Localization and Fragmentantion Transparency for SELECT.
+Result after running script:
 
-The first enables to retrieve info from a fragment without specifying its location
-(node where the fragment is at), just fragment's name like PAIS_2.
+![for node s1](/images/P3_1.png)
+![for node s2](/images/P3_2.png)
 
-The second one is to retrieve info from a global entitie like if it were
-a entitie on a centralized database, uses reconstruction expression
-for each entitie.
+As can be seen, data was imported and exported succesfully.
 
-For example, to retrieve all info from entitie PAIS from node CAHABDD_S1
+### Practice 4
+
+Implemented Localization and Fragmentantion Transparency for SELECT.
+
+The first one enables to retrieve info from a fragment without specifying its location
+(node where the fragment is at).
+
+The second one is to retrieve info from a global entity like if it were
+a entity on a centralized database, uses reconstruction expression
+for each entity.
+
+For example, to retrieve all info from entity PAIS from node CAHABDD_S1
 using Local Mapping Transparency, it would be like:
+
 ```sql
     select pais_id, clave, nombre, zona_economica
-        from pais_1
+        from f_cah_pais_1
         union all
     select pais_id, clave, nombre, zona_economica
         from f_cah_pais_2@cahabdd_s2;
@@ -134,3 +182,30 @@ change the way query was written.
 Fragmentantion Transparency makes querying for programmer
 much easier because he shouldn't know Fragmentation Scheme
 to use the Distribuited Database.
+
+### Practice 5
+
+Implemented Fragmentantion Transparency for
+_INSERT_, _UPDATE_ and _DELETE_ operations.
+
+This requirement was created using INSTEAD OF TRIGGERS for each
+entity.
+
+Created _INSERT_ and _DELETE_ transparency for following entities:
+
+1. PAIS
+1. SUCURSAL
+1. CUENTA
+1. MOVIMIENTO
+
+Just for __PAIS__ entity, _UPDATE_ transparency was implemented.
+
+1. [Trigger for PAIS entity - both nodes](/Practice_5/s-03-CAHA-pais-trigger.sql)
+2. [Trigger for SUCURSAL entity - node s1](/Practice_5/s-03-CAHA-sucursal-n1-trigger.sql)
+3. [Trigger for SUCURSAL entity - node s2](/Practice_5/s-03-CAHA-sucursal-n2-trigger.sql)
+4. [Trigger for CUENTA entity - node s1](/Practice_5/s-03-CAHA-cuenta-n1-trigger.sql)
+5. [Trigger for CUENTA entity - node s2](/Practice_5/s-03-CAHA-cuenta-n2-trigger.sql)
+6. [Trigger for MOVIMIENTO entity - node s1](/Practice_5/s-03-CAHA-movimiento-n1-trigger.sql)
+7. [Trigger for MOVIMIENTO entity - node s2](/Practice_5/s-03-CAHA-movimiento-n2-trigger.sql)
+
+[Script to create all triggers](Practice_5/s-04-CAHA-main-triggers.sql)
