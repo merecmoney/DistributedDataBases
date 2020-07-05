@@ -315,22 +315,22 @@ As can be seen, all materialized views use Fast Refresh.
 
 **Learn concepts about partitioning tables.**
 
-- agencia table partioning by [range](/Practice_7/s_03_CAHA_agencia.sql).
+- agencia table partitioning by [range](/Practice_7/s_03_CAHA_agencia.sql).
 
 Values inserted with their corresponding partition:
 
 ![agencia Table Rows with Partition](/images/P10_1.png)
 
-- pago_auto table partioning by [interval-range](/Practice_7/s_03_CAHA_pago_auto.sql).
+- pago_auto table partitioning by [interval-range](/Practice_7/s_03_CAHA_pago_auto.sql).
 
-- historico_status_auto partioning by [interval-hash](/Practice_7/s_03_historico_status_auto.sql)
+- historico_status_auto partitioning by [interval-hash](/Practice_7/s_03_historico_status_auto.sql)
 
-- auto table partioning by [lista-hash](/Practice_7/s_03_CAHA_auto.sql)
+- auto table partitioning by [lista-hash](/Practice_7/s_03_CAHA_auto.sql)
 
 ![auto Table Rows with Partition](/images/P10_2.png)
 
-- cliente table partioning by [hash](/Practice_7/s_03_CAHA_cliente_orden_compra.sql).
-- orden_compra partioning by [reference]((/Practice_7/s_03_CAHA_cliente_orden_compra.sql)).
+- cliente table partitioning by [hash](/Practice_7/s_03_CAHA_cliente_orden_compra.sql).
+- orden_compra partitioning by [reference]((/Practice_7/s_03_CAHA_cliente_orden_compra.sql)).
 
-Table partioning gives better performance for queries using
-Parition Prunning and Partition Wise Join.
+Table partitioning gives better performance for queries using
+Partition Pruning and Partition Wise Join.
