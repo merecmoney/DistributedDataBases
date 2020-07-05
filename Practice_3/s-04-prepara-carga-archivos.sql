@@ -6,6 +6,7 @@ whenever sqlerror exit rollback;
 
 --ruta donde se ubicarán los archivos PDFs
 define p_pdf_path='/tmp/bdd/p06'
+define p_pdf_origin='./pdf'
 set verify off
 Prompt Limpiando y creando directorio en /tmp/bdd/p06
 !rm -rf &p_pdf_path
@@ -14,7 +15,7 @@ Prompt Limpiando y creando directorio en /tmp/bdd/p06
 
 -- Se asume que los archivos PDF se encuentran en el mismo directorio donde se
 -- ejecuta este script.
-!cp m_archivo_*.pdf &p_pdf_path
+!cp &p_pdf_origin/m_archivo_*.pdf &p_pdf_path
 !chmod 755 &p_pdf_path/m_archivo_*.pdf
 
 -- cahabdd_s1
