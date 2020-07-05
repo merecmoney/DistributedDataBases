@@ -12,6 +12,7 @@ In this course, the following concepts were learned with the practices:
 - Programming PL/SQL.
 - Manage BLOB data.
 - Replication using materialized views with Fast Refresh.
+- Table Partitioning.
 
 ### Practice 1
 
